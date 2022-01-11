@@ -11,27 +11,29 @@ function writePassword(event) {
 passwordText.value = "";
 
   // create object
-  const objPwdGenerator = pwdGenerator;
+  // let objPwdGenerator = pwdGenerator;
+  let objPwdGenerator = Object.create(pwdGenerator);
   // get the user criteria
   objPwdGenerator.inputGet();
   // validate the user criteria
   let errorMsg = objPwdGenerator.inputValidate();
   if (errorMsg.length > 0) {
     alert(errorMsg);
-  } else {
+  } 
+  else {
     // generate password
     objPwdGenerator.pwdCreate();
     // render password
     passwordText.value = objPwdGenerator.pwd;
   }
-  console.log(objPwdGenerator);
+  // console.log(objPwdGenerator);
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
   //  object definition
-  var pwdGenerator = {
+  let pwdGenerator = {
     lowerAlphas: 'abcdefghijklmnopqrstuvwxyz',
     upperAlphas: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     numbers: '0123456789',

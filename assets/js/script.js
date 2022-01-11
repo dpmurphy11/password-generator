@@ -37,7 +37,7 @@ generateBtn.addEventListener("click", writePassword);
     lowerAlphas: 'abcdefghijklmnopqrstuvwxyz',
     upperAlphas: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     numbers: '0123456789',
-    specialChars: ' `~!@#$%^&*()-_=+[{]}\\|\'";:/?.>,<',  // must escape the forward slash and single quote
+    specialChars: '`~!@#$%^&*()-_=+[{]}\\|\'";:/?.>,<',  // must escape the forward slash and single quote
     sourceString: '',
     pwd: '',
     // user input

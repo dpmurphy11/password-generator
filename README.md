@@ -18,6 +18,7 @@ This is a web site that allows a user to generate a random password based on use
 * the "this" keyword is used to reference properties from within the object
 * RegEx is used to check match on positive integers on for password length entered by user
 * for loop , Math methods and array indexing are used to create password
+* FlexBox and media query are used for responsive layout
 
 ![Password Generator website screenshot](password-generator.png)
 

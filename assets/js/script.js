@@ -8,7 +8,7 @@ function writePassword(event) {
   event.preventDefault();
 
   // empty passwordText
-passwordText.textContent = "";
+passwordText.value = "";
 
   // create object
   const objPwdGenerator = pwdGenerator;
@@ -24,6 +24,7 @@ passwordText.textContent = "";
     // render password
     passwordText.value = objPwdGenerator.pwd;
   }
+  // console.log(objPwdGenerator);
 }
 
 // Add event listener to generate button
@@ -37,7 +38,7 @@ generateBtn.addEventListener("click", writePassword);
     specialChars: ' `~!@#$%^&*()-_=+[{]}\\|\'";:/?.>,<',  // must escape the forward slash and single quote
     sourceString: '',
     pwd: '',
-    // use input
+    // user input
     useUppers: true,
     useLowers: true,
     useNumbers: true,
@@ -56,7 +57,7 @@ generateBtn.addEventListener("click", writePassword);
     inputValidate: function() {
       let err = "";
     // make sure user selected at least 1 char type
-    if (this.useUppers || this.useLowers || this.useSpecials || this.useNubers) {
+    if (this.useUppers || this.useLowers || this.useSpecials || this.useNumbers) {
 
       // test user input against regular expression of integers only and between 8 - 128
       if (/^\d+$/.test(this.pwdLength) && this.pwdLength >= 8 && this.pwdLength <= 128) {
@@ -66,7 +67,7 @@ generateBtn.addEventListener("click", writePassword);
            this.sourceString += this.lowerAlphas;
         }
     
-        if (this.useNubers) {
+        if (this.useNumbers) {
           this.sourceString += this.numbers;
         }
     

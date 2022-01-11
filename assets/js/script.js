@@ -61,34 +61,37 @@ generateBtn.addEventListener("click", writePassword);
 
       // test user input against regular expression of integers only and between 8 - 128
       if (this.pwdLength !== null && /^\d+$/.test(this.pwdLength) && this.pwdLength >= 8 && this.pwdLength <= 128) {
-    
-        // concat sourceString based on user choices
-        if (this.useLowers) {
-           this.sourceString += this.lowerAlphas;
-        }
-    
-        if (this.useNumbers) {
-          this.sourceString += this.numbers;
-        }
-    
-        if (this.useSpecials) {
-          this.sourceString += this.specialChars;
-        }
-    
-        if (this.useUppers) {
-          this.sourceString += this.upperAlphas;
-        } 
-
-      } else {
+      } 
+      else {
           err = 'Please enter an integer from 8 - 128';
       }
-    } else {
+    } 
+    else {
       err = 'Please select at least 1 character type.';
       }
     return err;
   },
 
   pwdCreate: function() {
+ 
+    // concat sourceString based on user choices
+        if (this.useLowers) {
+          this.sourceString += this.lowerAlphas;
+       }
+   
+       if (this.useNumbers) {
+         this.sourceString += this.numbers;
+       }
+   
+       if (this.useSpecials) {
+         this.sourceString += this.specialChars;
+       }
+   
+       if (this.useUppers) {
+         this.sourceString += this.upperAlphas;
+       } 
+
+
     // create password
     for (let i = 0; i < this.pwdLength; i++) {
       // get a random index based on the length of the string

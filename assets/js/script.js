@@ -1,71 +1,99 @@
 // Assignment Code
 let generateBtn = document.querySelector("#generate");
+let passwordText = document.querySelector("#password");
 
-// Write password to the #password input
-function writePassword() {
-  let password = generatePassword();
-  let passwordText = document.querySelector("#password");
+// add event parameter to function
+function writePassword(event) {
+  // add preventDefault so page doesn't refresh
+  event.preventDefault();
 
-  passwordText.value = password;
+  // empty passwordText
+passwordText.textContent = "";
 
+  // create object
+  const objPwdGenerator = pwdGenerator;
+  // get the user criteria
+  objPwdGenerator.inputGet();
+  // validate the user criteria
+  let errorMsg = objPwdGenerator.inputValidate();
+  if (errorMsg.length > 0) {
+    alert(errorMsg);
+  } else {
+    // generate password
+    objPwdGenerator.pwdCreate();
+    // render password
+    passwordText.value = objPwdGenerator.pwd;
+  }
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-function generatePassword() {
-  // initialize variables
-  const lowerAlphas = 'abcdefghijklmnopqrstuvwxyz';
-  const upperAlphas = lowerAlphas.toUpperCase();
-  const numbers = '0123456789';
-  // must escape the forward slash and single quote
-  const specialChars = ' `~!@#$%^&*()-_=+[{]}\\|\'";:/?.>,<';
-  let sourceString = '';
-  let pwd = '';
+  //  object definition
+  var pwdGenerator = {
+    lowerAlphas: 'abcdefghijklmnopqrstuvwxyz',
+    upperAlphas: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    numbers: '0123456789',
+    specialChars: ' `~!@#$%^&*()-_=+[{]}\\|\'";:/?.>,<',  // must escape the forward slash and single quote
+    sourceString: '',
+    pwd: '',
+    // use input
+    useUppers: true,
+    useLowers: true,
+    useNumbers: true,
+    useSpecials: true,
+    pwdLength: 12,
 
-  // collect user input
-  let useUppers = confirm('Do you want upper case character?');
-  let useLowers = confirm('Do you want lower case character?');
-  let useNubers = confirm('Do you want numbers?');
-  let useSpecials = confirm('Do you want special character?');
-  let pwdLength = prompt('Number of characters. Please enter an integer form 8 - 128:', '');
+    inputGet: function() {
+      // collect user input
+      this.useUppers = confirm('Do you want upper case character?');
+      this.useLowers = confirm('Do you want lower case character?');
+      this.useNumbers = confirm('Do you want numbers?');
+      this.useSpecials = confirm('Do you want special character?');
+      this.pwdLength = prompt('Number of characters. Please enter an integer form 8 - 128:', this.pwdLength).trim();
+    },
+  
+    inputValidate: function() {
+      let err = "";
+    // make sure user selected at least 1 char type
+    if (this.useUppers || this.useLowers || this.useSpecials || this.useNubers) {
+
+      // test user input against regular expression of integers only and between 8 - 128
+      if (/^\d+$/.test(this.pwdLength) && this.pwdLength >= 8 && this.pwdLength <= 128) {
     
-  // User input validation
-  // make sure user selected at least 1 char type
-  if (useUppers || useLowers || useSpecials || useNubers) {
+        // concat sourceString based on user choices
+        if (this.useLowers) {
+           this.sourceString += this.lowerAlphas;
+        }
+    
+        if (this.useNubers) {
+          this.sourceString += this.numbers;
+        }
+    
+        if (this.useSpecials) {
+          this.sourceString += this.specialChars;
+        }
+    
+        if (this.useUppers) {
+          this.sourceString += this.upperAlphas;
+        } 
 
-    // test user input against regular expression of integers only and between 8 - 128
-    if (/^\d+$/.test(pwdLength) && pwdLength >= 8 && pwdLength <= 128) {
-
-      // concat sourceString based on user choices
-      if (useLowers) {
-        sourceString += lowerAlphas;
-      }
-
-      if (useNubers) {
-        sourceString += numbers;
-      }
-
-      if (useSpecials) {
-        sourceString += specialChars;
-      }
-
-      if (useUppers) {
-        sourceString += upperAlphas;
-      } 
-
-      // create password
-      for (let i = 0; i < pwdLength; i++) {
-        // get a random index based on the length of the string
-        let x = Math.floor(Math.random() *  sourceString.length);
-        // pull a character from the string based on the random index and add it to the string
-        pwd += sourceString[x];
+      } else {
+          err = 'Please enter an integer from 8 - 128';
       }
     } else {
-        alert('Please enter an integer from 8 - 128');
+      err = 'Please select at least 1 character type.';
+      }
+    return err;
+  },
+
+  pwdCreate: function() {
+    // create password
+    for (let i = 0; i < this.pwdLength; i++) {
+      // get a random index based on the length of the string
+        let x = Math.floor(Math.random() *  this.sourceString.length);
+        // pull a character from the string based on the random index and add it to the string
+        this.pwd += this.sourceString[x];
     }
-  } else {
-    alert('Please select at least 1 character type.');
-    }
-  return pwd;
-}
+  }
+};

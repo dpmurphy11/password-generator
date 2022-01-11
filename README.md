@@ -3,6 +3,7 @@
 This is a web site that allows a user to generate a random password based on user input.
 
 ## Features
+
 * The user interface adapts to multiple screen sizes
 * The user is promted to select from multiple character types and enter a value between 8 and 128
 * The user input is validated and an error is displayed if validation fails
@@ -10,6 +11,7 @@ This is a web site that allows a user to generate a random password based on use
 * The password is written to an html textarea element
 
 ## Implementation
+
 * alert(), prompt(), and confirm() window methods are used for user interaction
 * document.querySelectors are used
 * an eventListener is added for the button and the main function is called when the event occurs

@@ -24,7 +24,7 @@ passwordText.value = "";
     // render password
     passwordText.value = objPwdGenerator.pwd;
   }
-  // console.log(objPwdGenerator);
+  console.log(objPwdGenerator);
 }
 
 // Add event listener to generate button
@@ -43,7 +43,7 @@ generateBtn.addEventListener("click", writePassword);
     useLowers: true,
     useNumbers: true,
     useSpecials: true,
-    pwdLength: 12,
+    pwdLength: 0,
 
     inputGet: function() {
       // collect user input
@@ -51,7 +51,7 @@ generateBtn.addEventListener("click", writePassword);
       this.useLowers = confirm('Do you want lower case character?');
       this.useNumbers = confirm('Do you want numbers?');
       this.useSpecials = confirm('Do you want special character?');
-      this.pwdLength = prompt('Number of characters. Please enter an integer form 8 - 128:', this.pwdLength).trim();
+      this.pwdLength = prompt('Number of characters. Please enter an integer form 8 - 128:', "12");
     },
   
     inputValidate: function() {
@@ -60,7 +60,7 @@ generateBtn.addEventListener("click", writePassword);
     if (this.useUppers || this.useLowers || this.useSpecials || this.useNumbers) {
 
       // test user input against regular expression of integers only and between 8 - 128
-      if (/^\d+$/.test(this.pwdLength) && this.pwdLength >= 8 && this.pwdLength <= 128) {
+      if (this.pwdLength !== null && /^\d+$/.test(this.pwdLength) && this.pwdLength >= 8 && this.pwdLength <= 128) {
     
         // concat sourceString based on user choices
         if (this.useLowers) {
